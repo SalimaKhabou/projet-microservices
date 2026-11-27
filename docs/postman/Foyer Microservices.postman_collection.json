@@ -1,0 +1,455 @@
+{
+  "info": {
+    "_postman_id": "d17041c8-ec22-449d-b08f-b21db8890b88",
+    "name": "Foyer Microservices",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "39936118"
+  },
+  "item": [
+    {
+      "name": "1 - Étudiants",
+      "item": [
+        {
+          "name": "Ajouter étudiant",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nomEtudiant\":\"khabou\",\"prenomEtudiant\":\"salima\",\"cinEtudiant\":12345678,\"dateNaissance\":\"2003-04-22\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/etudiants/add",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "etudiants",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Liste des étudiants",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/etudiants/getAll",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "etudiants",
+                "getAll"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Étudiant par CIN",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/etudiants/getAll",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "etudiants",
+                "getAll"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CIN inexistant",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/etudiants/getByCin?cin=99999999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "etudiants",
+                "getByCin"
+              ],
+              "query": [
+                {
+                  "key": "cin",
+                  "value": "99999999"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2 - Blocs et Chambres",
+      "item": [
+        {
+          "name": "Ajouter bloc",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nomBloc\":\"A\",\"capaciteBloc\":50}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/blocs/add",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "blocs",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ajouter chambre",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"numeroChambre\":101,\"typeChambre\":\"DOUBLE\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/chambres/add",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "chambres",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Affecter chambre au bloc",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[1]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/blocs/affecter-chambre-bloc?idBloc=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "blocs",
+                "affecter-chambre-bloc"
+              ],
+              "query": [
+                {
+                  "key": "idBloc",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Liste des blocs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/blocs/getAll",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "blocs",
+                "getAll"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Liste des chambres",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/chambres/getAll",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "chambres",
+                "getAll"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3 - Réservations",
+      "item": [
+        {
+          "name": "Ajouter réservation",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/ajouter-reservation?idBloc=1&cinEtudiant={{cin}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "ajouter-reservation"
+              ],
+              "query": [
+                {
+                  "key": "idBloc",
+                  "value": "1"
+                },
+                {
+                  "key": "cinEtudiant",
+                  "value": "{{cin}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Annuler réservation",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/annuler-reservation?cinEtudiant={{cin}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "annuler-reservation"
+              ],
+              "query": [
+                {
+                  "key": "cinEtudiant",
+                  "value": "{{cin}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Réservation, CIN inexistant",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/ajouter-reservation?idBloc=1&cinEtudiant=99999999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "ajouter-reservation"
+              ],
+              "query": [
+                {
+                  "key": "idBloc",
+                  "value": "1"
+                },
+                {
+                  "key": "cinEtudiant",
+                  "value": "99999999"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Liste des réservations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/getAll",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "getAll"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4 - Sécurité",
+      "item": [
+        {
+          "name": "Sans clé",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/etudiants/getAll",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "etudiants",
+                "getAll"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Fausse clé",
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "fausse",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/etudiants/getAll",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "etudiants",
+                "getAll"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-KEY",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": ""
+    },
+    {
+      "key": "apiKey",
+      "value": ""
+    },
+    {
+      "key": "cin",
+      "value": ""
+    }
+  ]
+}
