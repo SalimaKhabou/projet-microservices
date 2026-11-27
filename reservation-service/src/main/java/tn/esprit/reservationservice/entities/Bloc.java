@@ -1,0 +1,31 @@
+package tn.esprit.reservationservice.entities;
+
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+import java.util.Set;
+
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Bloc {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
+    long idBloc;
+
+    String nomBloc;
+
+    long capaciteBloc;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "bloc")
+    Set<Chambre> chambres;
+}

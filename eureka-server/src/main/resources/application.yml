@@ -5,7 +5,12 @@ spring:
   application:
     name: eureka-server
 
+
 eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
+  # ceci ne doit pas être utilisé en production, mais seulement pour le développement local
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 5000
