@@ -22,12 +22,23 @@ public class EtudiantLookupService {
     private final EtudiantClient etudiantClient;
 
     // Retry est l'aspect le plus externe : le fallback n'est appelé qu'après les 3 tentatives
-    @Retry(name = "etudiantService", fallbackMethod = "fallback")
+    /*@Retry(name = "etudiantService", fallbackMethod = "fallback")
     @CircuitBreaker(name = "etudiantService")
     @RateLimiter(name = "etudiantService")
     public EtudiantDto getEtudiant(long cin) {
         log.info("Appel de etudiant-service pour le CIN {}", cin);
         return etudiantClient.getByCin(cin);
+    }*/
+    @Retry(name = "etudiantService", fallbackMethod = "fallback")
+    @CircuitBreaker(name = "etudiantService")
+    @RateLimiter(name = "etudiantService")
+    public EtudiantDto getEtudiant(long cin) {
+        log.info("Appel de etudiant-service pour le CIN {}", cin);
+        EtudiantDto e = etudiantClient.getByCin(cin);
+        if (e == null || e.cinEtudiant() != cin || e.nomEtudiant() == null) {
+            throw new IllegalStateException("Réponse invalide de etudiant-service pour le CIN " + cin);
+        }
+        return e;
     }
 
     // Étudiant inexistant : réponse métier normale
@@ -51,5 +62,10 @@ public class EtudiantLookupService {
     public EtudiantDto fallback(long cin, Throwable t) {
         log.warn("Échec de l'appel à etudiant-service : {}", t.toString());
         throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Service étudiant indisponible, réservation impossible pour le moment");
+    }
+
+    public EtudiantDto fallback(long cin, IllegalStateException e) {
+        log.warn("Données incorrectes reçues de etudiant-service : {}", e.getMessage());
+        throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "Réponse invalide du service étudiant");
     }
 }

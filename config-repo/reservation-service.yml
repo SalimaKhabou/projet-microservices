@@ -4,6 +4,13 @@ server:
     include-message: always
 
 spring:
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connect-timeout: 2000
+            read-timeout: 5000
   datasource:
     url: ${DB_URL:jdbc:mysql://localhost:3307/reservation_db?createDatabaseIfNotExist=true&useUnicode=true&serverTimezone=UTC}
     username: ${DB_USER:root}
