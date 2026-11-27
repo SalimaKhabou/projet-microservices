@@ -14,6 +14,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import tn.esprit.tpfoyer17.configurations.FailureSimulator;
 
+import org.springframework.core.env.Environment;
+
 import java.util.List;
 
 @RestController
@@ -25,6 +27,7 @@ import java.util.List;
 public class EtudiantController {
     IEtudiantService etudiantService;
     FailureSimulator failureSimulator;
+    Environment environment;
 
     @PostMapping("add")
     public Etudiant addEtudiant(@Valid @RequestBody Etudiant etudiant){
@@ -53,6 +56,7 @@ public class EtudiantController {
 
     @GetMapping("getByCin")
     public Etudiant getByCin(@RequestParam("cin") long cin) {
+        log.info("getByCin traité par l'instance sur le port {}", environment.getProperty("local.server.port"));
         Etudiant e = etudiantService.getEtudiantByCin(cin);
         if (e == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Etudiant introuvable");
