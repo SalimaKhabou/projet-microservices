@@ -30,7 +30,8 @@ public class ReservationService implements IReservationService {
     ReservationRepository reservationRepository;
     ChambreRepository chambreRepository;
     BlocRepository blocRepository;
-    EtudiantClient etudiantClient;
+    //EtudiantClient etudiantClient;
+    EtudiantLookupService etudiantLookupService;
 
     @Override
     public List<Reservation> getAllReservations() {
@@ -55,7 +56,8 @@ public class ReservationService implements IReservationService {
     @Override
     public Reservation ajouterReservation(long idBloc, long cinEtudiant) {
         // Appel REST vers etudiant-service : vérifie que l'étudiant existe
-        EtudiantDto etudiant = etudiantClient.getByCin(cinEtudiant);
+        //EtudiantDto etudiant = etudiantClient.getByCin(cinEtudiant);
+        EtudiantDto etudiant = etudiantLookupService.getEtudiant(cinEtudiant);
         log.info("Étudiant trouvé : {} {}", etudiant.prenomEtudiant(), etudiant.nomEtudiant());
 
         Reservation reservation = reservationRepository.findForReservation(idBloc);
