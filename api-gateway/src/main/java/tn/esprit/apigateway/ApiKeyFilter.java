@@ -21,6 +21,9 @@ public class ApiKeyFilter implements GlobalFilter, Ordered {
         if (HttpMethod.OPTIONS.equals(exchange.getRequest().getMethod())) {
             return chain.filter(exchange);
         }
+        if (exchange.getRequest().getURI().getPath().startsWith("/actuator")) {
+            return chain.filter(exchange);
+        }
         String key = exchange.getRequest().getHeaders().getFirst("X-API-KEY");
         if (apiKey.equals(key)) {
             return chain.filter(exchange);
