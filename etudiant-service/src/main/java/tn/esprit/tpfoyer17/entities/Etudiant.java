@@ -5,7 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
-import java.util.Set;
+
 
 @Entity
 @Getter
@@ -30,8 +30,5 @@ public class Etudiant {
 
     Date dateNaissance;
 
-    @ToString.Exclude
-    @ManyToMany(mappedBy = "etudiants")
-    Set<Reservation> reservations;
 
 }
