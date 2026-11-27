@@ -12,6 +12,8 @@ import tn.esprit.tpfoyer17.services.IEtudiantService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import tn.esprit.tpfoyer17.configurations.FailureSimulator;
+
 import java.util.List;
 
 @RestController
@@ -22,6 +24,7 @@ import java.util.List;
 @RequestMapping("api/etudiants")
 public class EtudiantController {
     IEtudiantService etudiantService;
+    FailureSimulator failureSimulator;
 
     @PostMapping("add")
     public Etudiant addEtudiant(@Valid @RequestBody Etudiant etudiant){
@@ -54,6 +57,6 @@ public class EtudiantController {
         if (e == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Etudiant introuvable");
         }
-        return e;
+        return failureSimulator.apply(e);
     }
 }
