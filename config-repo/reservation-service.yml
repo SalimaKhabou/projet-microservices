@@ -1,5 +1,7 @@
 server:
   port: 8083
+  error:
+    include-message: always
 
 spring:
   datasource:
@@ -22,10 +24,44 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,prometheus
+        include: health,info,prometheus,circuitbreakers,circuitbreakerevents,retries,retryevents,ratelimiters,ratelimiterevents
+  health:
+    circuitbreakers:
+      enabled: true
   tracing:
     sampling:
       probability: 1.0
   zipkin:
     tracing:
       endpoint: http://localhost:9411/api/v2/spans
+
+resilience4j:
+  retry:
+    instances:
+      etudiantService:
+        max-attempts: 3
+        wait-duration: 500ms
+        ignore-exceptions:
+          - feign.FeignException$NotFound
+          - io.github.resilience4j.circuitbreaker.CallNotPermittedException
+          - io.github.resilience4j.ratelimiter.RequestNotPermitted
+  ratelimiter:
+    instances:
+      etudiantService:
+        limit-for-period: 5
+        limit-refresh-period: 1s
+        timeout-duration: 0
+  circuitbreaker:
+    instances:
+      etudiantService:
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 10s
+        permitted-number-of-calls-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true
+        register-health-indicator: true
+        ignore-exceptions:
+          - feign.FeignException$NotFound
+          - io.github.resilience4j.ratelimiter.RequestNotPermitted
