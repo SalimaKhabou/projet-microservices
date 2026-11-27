@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import tn.esprit.tpfoyer17.entities.Etudiant;
 import tn.esprit.tpfoyer17.services.IEtudiantService;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 
 @RestController
@@ -43,5 +46,14 @@ public class EtudiantController {
     @PutMapping("update")
     public Etudiant updatingEtudiant(@RequestBody Etudiant etudiant){
         return etudiantService.updateEtudiant(etudiant);
+    }
+
+    @GetMapping("getByCin")
+    public Etudiant getByCin(@RequestParam("cin") long cin) {
+        Etudiant e = etudiantService.getEtudiantByCin(cin);
+        if (e == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Etudiant introuvable");
+        }
+        return e;
     }
 }

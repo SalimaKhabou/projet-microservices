@@ -11,4 +11,5 @@ public interface IEtudiantService {
     Etudiant getEtudiantById(long idEtudiant);
     void deleteEtudiant(long idEtudiant);
     Etudiant updateEtudiant(Etudiant etudiant);
+    Etudiant getEtudiantByCin(long cin);
 }

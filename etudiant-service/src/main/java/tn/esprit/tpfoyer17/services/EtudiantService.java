@@ -57,4 +57,9 @@ public class EtudiantService implements IEtudiantService{
         log.info("Mise à jour de l'étudiant avec l'id {}", etudiant.getIdEtudiant());
         return etudiantRepository.save(etudiant);
     }
+
+    @Override
+    public Etudiant getEtudiantByCin(long cin) {
+        return etudiantRepository.findByCinEtudiant(cin);
+    }
 }
