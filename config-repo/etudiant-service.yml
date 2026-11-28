@@ -30,3 +30,11 @@ management:
   zipkin:
     tracing:
       endpoint: http://localhost:9411/api/v2/spans
+
+axon:
+  axonserver:
+    servers: localhost:8124
+  serializer:
+    general: jackson
+    events: jackson
+    messages: jackson
