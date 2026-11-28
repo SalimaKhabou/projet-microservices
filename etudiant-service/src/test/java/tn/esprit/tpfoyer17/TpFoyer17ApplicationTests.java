@@ -7,7 +7,8 @@ import org.springframework.context.ApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@SpringBootTest
+//@SpringBootTest
+@SpringBootTest(classes = TpFoyer17Application.class, properties = "axon.axonserver.enabled=false")
 class TpFoyer17ApplicationTests {
 
     @Autowired

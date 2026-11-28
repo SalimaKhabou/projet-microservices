@@ -12,7 +12,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest
+//@SpringBootTest
+@SpringBootTest(properties = "axon.axonserver.enabled=false")
 class EtudiantServiceIntegrationTest {
 
     @Autowired
